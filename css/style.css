@@ -1331,15 +1331,17 @@ img {
 .pi-photo {
     width: 220px;
     max-width: 100%;
-    aspect-ratio: auto;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
     overflow: hidden;
 }
 
 .pi-photo img {
     display: block;
     width: 100%;
-    height: auto;
-    object-fit: contain;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
 }
 
 .person-label {

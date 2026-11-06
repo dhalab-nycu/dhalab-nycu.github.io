@@ -1328,25 +1328,68 @@ img {
     align-items: center;
 }
 
+/* 兩位教授左右並排 */
+.pi-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 70px;
+    align-items: start;
+}
+
+/* 並排時每位教授改成「照片在上、文字在下」 */
+.pi-row .pi-layout {
+    grid-template-columns: 1fr;
+    row-gap: 30px;
+    align-items: start;
+}
+
+.pi-row .pi-photo {
+    width: 200px;
+}
+
+.pi-row .pi-info h2 {
+    font-size: clamp(32px, 3vw, 46px);
+}
+
+@supports (grid-template-rows: subgrid) {
+    .pi-row {
+        row-gap: 0;
+    }
+
+    .pi-row .pi-layout {
+        grid-row: span 6;
+        grid-template-rows: subgrid;
+        row-gap: 0;
+    }
+
+    .pi-row .pi-photo {
+        margin-bottom: 30px;
+    }
+
+    .pi-row .pi-info {
+        grid-row: span 5;
+        display: grid;
+        grid-template-rows: subgrid;
+        row-gap: 0;
+    }
+}
+
 .pi-photo {
     width: 220px;
     max-width: 100%;
-    aspect-ratio: 1 / 1;
-    border-radius: 50%;
+    aspect-ratio: 1 / 1;          /* 圓形頭像：正方形外框 */
+    border-radius: 50%;           /* 圓形頭像：變成正圓 */
     background: #e1e2dc;
     overflow: hidden;
-}
-
-.pi-layout + .pi-layout {
-    margin-top: 70px;
 }
 
 .pi-photo img {
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: center top;
+    border-radius: 50%;
+    object-fit: cover;            /* 填滿圓形、不變形 */
+    object-position: center top;  /* 從上方對齊，避免切到頭 */
 }
 
 .person-label {
@@ -1406,18 +1449,17 @@ img {
 }
 
 .member-photo {
-  width: 100%;
-  max-width: 200px;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
+  width: min(100%, 200px);       /* 圓形頭像：最大 200px */
+  aspect-ratio: 1 / 1;           /* 圓形頭像：正方形外框 */
+  border-radius: 50%;            /* 圓形頭像：變成正圓 */
   background: #e1e2dc;
   overflow: hidden;
 }
 
 .member-photo img {
-  display: block;
   width: 100%;
   height: 100%;
+  border-radius: 50%;
   object-fit: cover;
   object-position: center top;
   transition: transform 0.4s ease;
@@ -1486,6 +1528,27 @@ img {
 
   .pi-photo {
     max-width: 180px;
+  }
+
+  /* 手機版改回上下排列 */
+  .pi-row {
+    grid-template-columns: 1fr;
+    row-gap: 60px;
+  }
+
+  .pi-row .pi-photo {
+    width: 180px;
+  }
+
+  /* 手機版上下排列，不需要逐行對齊 */
+  .pi-row .pi-layout,
+  .pi-row .pi-info {
+    grid-row: auto;
+    grid-template-rows: none;
+  }
+
+  .pi-row .pi-info {
+    display: block;
   }
 
   .members-grid {
